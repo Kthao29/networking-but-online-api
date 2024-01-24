@@ -1,43 +1,63 @@
 const connection = require('../config/connection');
-const { User, Application } = require('../models');
-const { getRandomName, getRandomApplications } = require('./data');
+const { User, Thought } = require('../models');
+
+const users = [
+    {
+        username: 'Adam',
+        email: 'adam@gmail.com',
+    },
+    {
+        username: 'Bean',
+        email: 'bean@gmail.com'
+    },
+    {
+        username: 'Carol',
+        email: 'carol@gmail.com'
+    },
+    {
+        username: 'Dennis',
+        email: 'dennis@gmail.com'
+    },
+    {
+        username: 'Eric',
+        email: 'eric@gmail.com'
+    },
+    {
+        username: 'Frank',
+        email: 'frank@gmail.com'
+    },
+    {
+        username: 'Gabe',
+        email: 'gabe@gmail.com'
+    },
+    {
+        username: 'Hillary',
+        email: 'hillary@gmail.com'
+    },
+    {
+        username: 'Issac',
+        email: 'issac@gmail.com'
+    },
+    {
+        username: 'Jonas',
+        email: 'jonas@gmail.com'
+    },
+    {
+        username: 'Kelvin',
+        email: 'kelvin@gmail.com'
+    },
+  ]
 
 connection.on('error', (err) => err);
 
 connection.once('open', async () => {
-  console.log('connected');
-  // Delete the collections if they exist
-  let applicationCheck = await connection.db.listCollections({ name: 'applications' }).toArray();
-  if (applicationCheck.length) {
-    await connection.dropCollection('applications');
-  }
+    console.log('connected');
+    await Thought.deleteMany({});
+    await User.deleteMany({});
   
-  let userCheck = await connection.db.listCollections({ name: 'users' }).toArray();
-  if (userCheck.length) {
-    await connection.dropCollection('users');
-  }
+    await User.collection.insertMany(users);
 
-  const users = [];
-  const applications = getRandomApplications(10);
-
-  for (let i = 0; i < 20; i++) {
-    const fullName = getRandomName();
-    const first = fullName.split(' ')[0];
-    const last = fullName.split(' ')[1];
-
-    users.push({
-      first,
-      last,
-      age: Math.floor(Math.random() * (99 - 18 + 1) + 18),
-    });
-  }
-
-  await User.collection.insertMany(users);
-  await Application.collection.insertMany(applications);
-
-  // loop through the saved applications, for each application we need to generate a application response and insert the application responses
-  console.table(users);
-  console.table(applications);
-  console.info('Seeding complete! 🌱');
-  process.exit(0);
-});
+    console.info('Seeding complete! 🌱');
+    process.exit(0);
+  });
+  
