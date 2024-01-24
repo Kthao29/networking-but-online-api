@@ -30,7 +30,7 @@ const reactionSchema = new Schema (
     }
 )
 
-// thought schema
+// thought schema object
 const thoughtSchema = new Schema (
     {
       thoughtText: {
@@ -60,13 +60,14 @@ const thoughtSchema = new Schema (
 )
 
 
-// get total count of friends
+// Virtual to get total count of reaction
 thoughtSchema.virtual('reactionCount')
 .get(function() {
     return this.reactions.length;
 })
 
-// create the User model using the UserSchema
+// Create the Thought model through thoughtSchema
 const Thought = model('Thought', thoughtSchema);
+
 // export the Thought model
 module.exports = Thought;

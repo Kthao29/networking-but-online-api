@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
+// destructuring
 const {
     getUser,
     getSingleUser,
