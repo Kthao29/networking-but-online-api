@@ -18,7 +18,7 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  //create a thought and push the created thought's _id to the associated user's thoughts array field
+  //create a thought 
   createThought(req, res) {
     Thought.create(req.body)
       .then(({ _id }) => {
@@ -78,7 +78,7 @@ module.exports = {
     )
       .then((thought) =>
         !thought
-          ? res.status(404).json({ message: "No thought frind with ID!" })
+          ? res.status(404).json({ message: "No thought find with ID!" })
           : res.json(thought)
       )
       .catch((err) => res.status(500).json(err));
