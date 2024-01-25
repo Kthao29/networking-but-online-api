@@ -1,14 +1,14 @@
 const connection = require('../config/connection');
 const { User, Thought } = require('../models');
 
-// Seed data for user
+// Seed data for users
 const users = [
     {
       username: "Adam",
       email: "adam@gmail.com",
       thoughts: [],
       friends: [],
-      friendCount: 3
+      friendCount: '3'
     },
     {
       username: "Bob",
@@ -134,7 +134,7 @@ const users = [
     }
   };
   
-  // Set up event listeners for connection
+  // Set up event listeners for connection error
   connection.on('error', (err) => {
     console.error('MongoDB connection error:', err);
   });
